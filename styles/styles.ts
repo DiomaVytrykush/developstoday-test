@@ -101,6 +101,26 @@ export const NewButton = styled.button`
   outline: none;
 `;
 
+export const DeleteButton = styled.button`
+  top: 5px;
+  right: 5px;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  background: none;
+  outline: none;
+
+  &:hover {
+    border-color: #ce82ff;
+    color: #ce82ff;
+  }
+`;
+
 export const ErrorMassage = styled.div`
   color: red;
 `;

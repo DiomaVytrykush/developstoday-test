@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { fetchPosts } from "../redux/actions/postAction";
+import { fetchPosts, deletePost } from "../redux/actions/postAction";
 import { PostsState } from "../interfaces/posts";
 import Button from "../components/Button";
 import Layout from "../components/Layout";
@@ -13,6 +13,7 @@ import {
   PostTitle,
   PostCircle,
   ButtonWrapper,
+  DeleteButton,
 } from "../styles/styles";
 
 const Posts = () => {
@@ -24,6 +25,11 @@ const Posts = () => {
   React.useEffect(() => {
     dispatch(fetchPosts());
   }, []);
+
+  const removePost = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+    dispatch(deletePost(e));
+  };
 
   return (
     <Layout title="Posts Page">
@@ -38,6 +44,7 @@ const Posts = () => {
                   <PostTitle>{item.title}</PostTitle>
                   <h1>{item.body}</h1>
                 </PostContent>
+                <DeleteButton onClick={(e) => removePost(e)}>✖</DeleteButton>
                 <PostCircle />
               </Post>
             </Link>

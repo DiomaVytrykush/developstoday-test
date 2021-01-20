@@ -1,7 +1,7 @@
 import React from "react";
 
 export interface MyPost {
-  id: string | number;
+  id: string | number
   title: string;
   body: string;
 }
@@ -18,5 +18,5 @@ export interface ButtonType {
 
 export interface LayoutType {
   children: React.ReactNode;
-  title: string;
+  title: string | number;
 }

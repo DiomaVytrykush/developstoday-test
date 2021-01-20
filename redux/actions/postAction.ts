@@ -32,3 +32,15 @@ export const addPost = (
     payload: res.data,
   });
 };
+
+export const deletePost = (
+  id: React.MouseEvent<HTMLButtonElement, MouseEvent>
+): ThunkAction<void, PostsState, unknown, Action<string>> => async (
+  dispatch
+) => {
+  await axios.delete(`https://simple-blog-api.crew.red/posts/${id}`);
+  dispatch({
+    type: types.DELETE_POST,
+    id,
+  });
+};
