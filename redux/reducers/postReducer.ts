@@ -4,26 +4,61 @@ import { PostsState } from "../../interfaces/posts";
 
 const initialState: PostsState = {
   posts: [],
-  loading: true,
+  loading: false,
+  error: null,
 };
 
 export const postReducer = (state = initialState, action: PostActionTypes) => {
   switch (action.type) {
-    case types.GET_POSTS:
+    case types.GET_POSTS_STARTED:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.GET_POSTS_SUCCESS:
       return {
         ...state,
         posts: action.payload,
+        error: null,
         loading: false,
       };
-    case types.ADD_POST:
+    case types.GET_POSTS_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+        loading: false,
+      };
+    case types.ADD_POST_STARTED:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.ADD_POST_SUCCESS:
       return {
         ...state,
         posts: [...state.posts, action.payload],
       };
-    case types.DELETE_POST:
+    case types.ADD_POST_FAILURE:
       return {
         ...state,
-        posts: state.posts.filter(item => item.id !== action.id),
+        error: action.payload.error,
+        loading: false,
+      };
+    case types.DELETE_POST_STARTED:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        posts: state.posts.filter((item) => item.id !== action.id),
+      };
+    case types.DELETE_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+        loading: false,
       };
     default:
       return state;

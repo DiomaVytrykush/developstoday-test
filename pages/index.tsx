@@ -17,8 +17,10 @@ import {
 } from "../styles/styles";
 
 const Posts = () => {
-  const { posts, loading } = useSelector((state: PostsState) => state.posts);
-
+  const { posts, loading, error } = useSelector(
+    (state: PostsState) => state.posts
+  );
+  console.log(error);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -34,6 +36,7 @@ const Posts = () => {
   return (
     <Layout title="Posts Page">
       <Container>
+        {error}
         {loading ? (
           <h1>Loading...</h1>
         ) : posts.length ? (

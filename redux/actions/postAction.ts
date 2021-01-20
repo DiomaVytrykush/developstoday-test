@@ -4,43 +4,75 @@ import axios from "axios";
 import * as types from "../types";
 import { PostsState } from "../../interfaces/posts";
 
-export const fetchPosts = (): ThunkAction<
-  void,
-  PostsState,
-  unknown,
-  Action<string>
-> => async (dispatch) => {
-  const res = await axios.get("https://simple-blog-api.crew.red/posts");
-  dispatch({
-    type: types.GET_POSTS,
-    payload: res.data,
-  });
+const actionStarted = (type) => ({
+  type,
+});
+
+const actionSuccess = (res, type) => ({
+  type,
+  payload: res,
+});
+
+const actionFailure = (error, type) => ({
+  type,
+  payload: {
+    error,
+  },
+});
+
+const patternFunc = (
+  startedType,
+  successType,
+  failireType,
+  method,
+  url,
+  params
+): ThunkAction<void, PostsState, unknown, Action<string>> => {
+  return (dispatch) => {
+    dispatch(actionStarted(startedType));
+
+    axios({ method, url, data: params })
+      .then((res) => {
+        dispatch(actionSuccess(res.data, successType));
+      })
+      .catch((err) => {
+        dispatch(actionFailure(err.message, failireType));
+      });
+  };
 };
 
-export const addPost = (
-  title: string,
-  body: string
-): ThunkAction<void, PostsState, unknown, Action<string>> => async (
-  dispatch
-) => {
-  const res = await axios.post("https://simple-blog-api.crew.red/posts", {
-    title,
-    body,
-  });
-  dispatch({
-    type: types.ADD_POST,
-    payload: res.data,
-  });
+export const fetchPosts = () => {
+  return patternFunc(
+    types.GET_POSTS_STARTED,
+    types.GET_POSTS_SUCCESS,
+    types.GET_POSTS_FAILURE,
+    "get",
+    "https://simple-blog-api.crew.red/posts/",
+    null
+  );
 };
 
-export const deletePost = (
-  id: React.MouseEvent<HTMLButtonElement, MouseEvent>
-): ThunkAction<void, PostsState, unknown, Action<string>> => async (
-  dispatch
-) => {
-  await axios.delete(`https://simple-blog-api.crew.red/posts/${id}`);
-  dispatch({
-    type: types.DELETE_POST,
-    id,
-  });
+export const addPost = (title, body) => {
+  return patternFunc(
+    types.ADD_POST_STARTED,
+    types.ADD_POST_SUCCESS,
+    types.ADD_POST_FAILURE,
+    "post",
+    "https://simple-blog-api.crew.red/posts/",
+    {
+      title,
+      body,
+    }
+  );
+};
+
+export const deletePost = (id) => {
+  return patternFunc(
+    types.DELETE_POST_STARTED,
+    types.DELETE_POST_SUCCESS,
+    types.DELETE_POST_FAILURE,
+    "delete",
+    `https://simple-blog-api.crew.red/posts/${id}`,
+    null
+  );
 };
