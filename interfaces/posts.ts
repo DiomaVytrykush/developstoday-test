@@ -4,13 +4,13 @@ export interface MyPost {
   id: string | number;
   title: string;
   body: string;
-  error: any;
+  error: string;
 }
 
 export interface PostsState {
   posts: MyPost[];
   loading: boolean;
-  error: any;
+  error: string;
 }
 
 export interface ButtonType {
