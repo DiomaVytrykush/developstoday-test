@@ -31,7 +31,9 @@ const Posts = () => {
 
   React.useEffect(() => {
     if (error !== null) {
-      setopenModal(!openModal);
+      setopenModal(true);
+    } else {
+      setopenModal(false);
     }
   }, [error]);
 
