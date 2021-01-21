@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { addPost } from "../../../redux/actions/postAction";
 import Button from "../../../components/Button";
 import Layout from "../../../components/Layout";
+import { theme } from '../../_app';
 
 const newPost = () => {
   const [title, setTitle] = React.useState("");
@@ -50,7 +51,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #ce82ff;
+  background-color: ${theme.colors.secondary};
   height: 100vh;
   text-align: center;
   justify-content: center;
@@ -66,7 +67,7 @@ const Title = styled.h1`
 const Input = styled.input`
   outline: none;
   width: 300px;
-  border: 3px solid #ff9600;
+  border: 3px solid ${theme.colors.primary};
   padding: 15px 25px;
   border-radius: 20px;
   margin-bottom: 20px;

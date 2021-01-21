@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { fetchPosts } from "../../redux/actions/postAction";
 import Layout from "../../components/Layout";
 import Button from "../../components/Button";
+import { theme } from '../_app';
 
 const Post = () => {
   const { posts, loading } = useSelector((state: PostsState) => state.posts);
@@ -39,7 +40,7 @@ const Post = () => {
 };
 
 const PostWithBorder = styled.div`
-  border: 3px solid #ff9600;
+  border: 3px solid ${theme.colors.primary};
   border-radius: 15px;
   padding: 60px;
   margin: 0 40px;
@@ -55,7 +56,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #ce82ff;
+  background-color: ${theme.colors.secondary};
   height: 100vh;
   text-align: center;
   justify-content: center;

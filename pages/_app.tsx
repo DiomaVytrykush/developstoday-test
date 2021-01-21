@@ -12,7 +12,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <style jsx global>
         {`
           body {
-            font-family: "Varela Round", sans-serif;
+            font-family: ${theme.font}, sans-serif;
             margin: 0;
             padding: 0;
           }
@@ -20,6 +20,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </style>
     </Provider>
   );
+};
+
+export const theme = {
+  colors: {
+    primary: "#ff9600",
+    secondary: "#ce82ff",
+  },
+  font: "Varela Round",
 };
 
 const makeStore = () => store;

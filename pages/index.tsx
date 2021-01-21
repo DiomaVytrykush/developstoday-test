@@ -7,28 +7,36 @@ import { fetchPosts, deletePost } from "../redux/actions/postAction";
 import { PostsState } from "../interfaces/posts";
 import Button from "../components/Button";
 import Layout from "../components/Layout";
+import { theme } from "./_app";
+import NewModal from "../components/Modal";
 
 const Posts = () => {
+  const [openModal, setopenModal] = React.useState(false);
   const { posts, loading, error } = useSelector(
     (state: PostsState) => state.posts
   );
-  console.log(error);
+
   const dispatch = useDispatch();
   const router = useRouter();
-
-  React.useEffect(() => {
-    dispatch(fetchPosts());
-  }, []);
 
   const removePost = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     dispatch(deletePost(e));
   };
 
+  React.useEffect(() => {
+    dispatch(fetchPosts());
+  }, []);
+
+  React.useEffect(() => {
+    if (error !== null) {
+      setopenModal(!openModal);
+    }
+  }, [error]);
+
   return (
     <Layout title="Posts Page">
       <Container>
-        {error}
         {loading ? (
           <h1>Loading...</h1>
         ) : posts.length ? (
@@ -51,6 +59,11 @@ const Posts = () => {
       <ButtonWrapper>
         <Button onClick={() => router.push("/posts/new")} />
       </ButtonWrapper>
+      <NewModal
+        openModal={openModal}
+        setopenModal={setopenModal}
+        error={error}
+      />
     </Layout>
   );
 };
@@ -66,7 +79,7 @@ const Container = styled.div`
 const Post = styled.a`
   position: relative;
   overflow: hidden;
-  background-color: #ff9600;
+  background-color: ${theme.colors.primary};
   width: calc(30% + 10px);
   margin: 0 9px 18px;
   border-radius: 15px;
@@ -92,7 +105,7 @@ const PostCircle = styled.div`
   left: 75%;
   width: 150px;
   height: 150px;
-  background-color: #ce82ff;
+  background-color: ${theme.colors.secondary};
   border-radius: 50%;
 `;
 
@@ -117,8 +130,8 @@ const DeleteButton = styled.button`
   outline: none;
 
   &:hover {
-    border-color: #ce82ff;
-    color: #ce82ff;
+    border-color: ${theme.colors.secondary};
+    color: ${theme.colors.secondary};
   }
 `;
 

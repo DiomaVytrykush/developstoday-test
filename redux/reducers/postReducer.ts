@@ -14,6 +14,7 @@ export const postReducer = (state = initialState, action: PostActionTypes) => {
       return {
         ...state,
         loading: true,
+        error: null
       };
     case types.GET_POSTS_SUCCESS:
       return {
@@ -32,6 +33,7 @@ export const postReducer = (state = initialState, action: PostActionTypes) => {
       return {
         ...state,
         loading: true,
+        error: null
       };
     case types.ADD_POST_SUCCESS:
       return {
@@ -48,6 +50,7 @@ export const postReducer = (state = initialState, action: PostActionTypes) => {
       return {
         ...state,
         loading: true,
+        error: null
       };
     case types.DELETE_POST_SUCCESS:
       return {
@@ -55,6 +58,23 @@ export const postReducer = (state = initialState, action: PostActionTypes) => {
         posts: state.posts.filter((item) => item.id !== action.id),
       };
     case types.DELETE_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+        loading: false,
+      };
+      case types.ADD_COMMENT_STARTED:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
+    case types.ADD_COMMENT_SUCCESS:
+      return {
+        ...state,
+        // posts: ,
+      };
+    case types.ADD_COMMENT_FAILURE:
       return {
         ...state,
         error: action.payload.error,

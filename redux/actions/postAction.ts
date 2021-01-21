@@ -76,3 +76,16 @@ export const deletePost = (id) => {
     null
   );
 };
+
+export const addComment = (comment) => {
+  return patternFunc(
+    types.ADD_COMMENT_STARTED,
+    types.ADD_COMMENT_SUCCESS,
+    types.ADD_COMMENT_FAILURE,
+    "post",
+    "https://simple-blog-api.crew.red/comments",
+    {
+      comment,
+    }
+  );
+};

@@ -9,6 +9,9 @@ export const ADD_POST_FAILURE = "ADD_POST_FAILURE";
 export const DELETE_POST_STARTED = "DELETE_POST_STARTED";
 export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
 export const DELETE_POST_FAILURE = "DELETE_POST_FAILURE";
+export const ADD_COMMENT_STARTED = "ADD_COMMENT_STARTED";
+export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
+export const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE";
 
 interface GetPostsStartedAction {
   type: typeof GET_POSTS_STARTED;
@@ -56,6 +59,21 @@ interface DeletePostFailureAction {
   payload: MyPost;
 }
 
+interface addCommentStartedAction {
+  type: typeof ADD_COMMENT_STARTED;
+  loading: boolean;
+}
+
+interface addCommentSuccessAction {
+  type: typeof ADD_COMMENT_SUCCESS;
+  payload: MyPost;
+}
+
+interface addCommentFailureAction {
+  type: typeof ADD_COMMENT_FAILURE;
+  payload: MyPost;
+}
+
 export type PostActionTypes =
   | GetPostsStartedAction
   | GetPostsSuccessAction
@@ -65,4 +83,7 @@ export type PostActionTypes =
   | AddPostFailureAction
   | DeletePostStartedAction
   | DeletePostSuccessAction
-  | DeletePostFailureAction;
+  | DeletePostFailureAction
+  | addCommentStartedAction
+  | addCommentSuccessAction
+  | addCommentFailureAction;

@@ -22,3 +22,9 @@ export interface LayoutType {
   children: React.ReactNode;
   title: string | number;
 }
+
+export interface ModalType {
+  openModal: boolean;
+  setopenModal: (e) => void;
+  error: string;
+}
