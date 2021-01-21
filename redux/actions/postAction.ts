@@ -77,7 +77,18 @@ export const deletePost = (id) => {
   );
 };
 
-export const addComment = (comment) => {
+export const fetchComments = (id) => {
+  return patternFunc(
+    types.GET_COMMENTS_STARTED,
+    types.GET_COMMENTS_SUCCESS,
+    types.GET_COMMENTS_FAILURE,
+    "get",
+    `https://simple-blog-api.crew.red/comments/?postId=${id}`,
+    null
+  );
+};
+
+export const addComment = (postId, body) => {
   return patternFunc(
     types.ADD_COMMENT_STARTED,
     types.ADD_COMMENT_SUCCESS,
@@ -85,7 +96,8 @@ export const addComment = (comment) => {
     "post",
     "https://simple-blog-api.crew.red/comments",
     {
-      comment,
+      postId,
+      body,
     }
   );
 };

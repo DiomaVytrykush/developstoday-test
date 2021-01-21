@@ -7,8 +7,16 @@ export interface MyPost {
   error: string;
 }
 
+export interface MyComment {
+  id: string | number;
+  body: string;
+  comment: string;
+  error: string;
+}
+
 export interface PostsState {
   posts: MyPost[];
+  comments: MyComment[];
   loading: boolean;
   error: string;
 }

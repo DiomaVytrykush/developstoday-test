@@ -4,6 +4,7 @@ import { PostsState } from "../../interfaces/posts";
 
 const initialState: PostsState = {
   posts: [],
+  comments: [],
   loading: false,
   error: null,
 };
@@ -14,7 +15,7 @@ export const postReducer = (state = initialState, action: PostActionTypes) => {
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
       };
     case types.GET_POSTS_SUCCESS:
       return {
@@ -33,12 +34,13 @@ export const postReducer = (state = initialState, action: PostActionTypes) => {
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
       };
     case types.ADD_POST_SUCCESS:
       return {
         ...state,
         posts: [...state.posts, action.payload],
+        loading: false,
       };
     case types.ADD_POST_FAILURE:
       return {
@@ -50,12 +52,13 @@ export const postReducer = (state = initialState, action: PostActionTypes) => {
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
       };
     case types.DELETE_POST_SUCCESS:
       return {
         ...state,
         posts: state.posts.filter((item) => item.id !== action.id),
+        loading: false,
       };
     case types.DELETE_POST_FAILURE:
       return {
@@ -63,16 +66,38 @@ export const postReducer = (state = initialState, action: PostActionTypes) => {
         error: action.payload.error,
         loading: false,
       };
-      case types.ADD_COMMENT_STARTED:
+    case types.GET_COMMENTS_STARTED:
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
+        comments: [],
+      };
+    case types.GET_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        comments: action.payload,
+        error: null,
+        loading: false,
+      };
+    case types.GET_COMMENTS_FAILURE:
+      return {
+        ...state,
+        comments: [],
+        error: action.payload.error,
+        loading: false,
+      };
+    case types.ADD_COMMENT_STARTED:
+      return {
+        ...state,
+        loading: true,
+        error: null,
       };
     case types.ADD_COMMENT_SUCCESS:
       return {
         ...state,
-        // posts: ,
+        comments: [...state.comments, action.payload],
+        loading: false,
       };
     case types.ADD_COMMENT_FAILURE:
       return {

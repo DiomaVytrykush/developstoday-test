@@ -9,6 +9,7 @@ import Button from "../components/Button";
 import Layout from "../components/Layout";
 import { theme } from "./_app";
 import NewModal from "../components/Modal";
+import Loader from "components/Loader";
 
 const Posts = () => {
   const [openModal, setopenModal] = React.useState(false);
@@ -36,34 +37,40 @@ const Posts = () => {
 
   return (
     <Layout title="Posts Page">
-      <Container>
-        {loading ? (
-          <h1>Loading...</h1>
-        ) : posts.length ? (
-          posts.map((item) => (
-            <Link key={item.id} href={`/posts/${item.id}`}>
-              <Post>
-                <PostContent>
-                  <PostTitle>{item.title}</PostTitle>
-                  <h1>{item.body}</h1>
-                </PostContent>
-                <DeleteButton onClick={(e) => removePost(e)}>✖</DeleteButton>
-                <PostCircle />
-              </Post>
-            </Link>
-          ))
-        ) : (
-          <h1>There are no posts yet</h1>
-        )}
-      </Container>
-      <ButtonWrapper>
-        <Button onClick={() => router.push("/posts/new")} />
-      </ButtonWrapper>
-      <NewModal
-        openModal={openModal}
-        setopenModal={setopenModal}
-        error={error}
-      />
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <Container>
+            {posts.length ? (
+              posts.map((item) => (
+                <Link key={item.id} href={`/posts/${item.id}`}>
+                  <Post>
+                    <PostContent>
+                      <PostTitle>{item.title}</PostTitle>
+                      <h1>{item.body}</h1>
+                    </PostContent>
+                    <DeleteButton onClick={(e) => removePost(e)}>
+                      ✖
+                    </DeleteButton>
+                    <PostCircle />
+                  </Post>
+                </Link>
+              ))
+            ) : (
+              <h1>There are no posts yet</h1>
+            )}
+          </Container>
+          <ButtonWrapper>
+            <Button onClick={() => router.push("/posts/new")} />
+          </ButtonWrapper>
+          <NewModal
+            openModal={openModal}
+            setopenModal={setopenModal}
+            error={error}
+          />
+        </>
+      )}
     </Layout>
   );
 };
